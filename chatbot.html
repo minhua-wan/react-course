@@ -9,6 +9,7 @@
   <div class="js-container"></div>
   <script src="https://unpkg.com/supersimpledev/react.js"></script>
   <script src="https://unpkg.com/supersimpledev/react-dom.js"></script>
+  <script src="https://unpkg.com/supersimpledev/chatbot.js"></script>
 
   <script src="https://unpkg.com/supersimpledev/babel.js"></script>
   <script src="https://unpkg.com/supersimpledev/dayjs.js"></script>
@@ -47,10 +48,23 @@
         function sendMessage() {
           if (inputText.length === 0)
             return;
-          setChatMessages([
+
+
+          const newChatMessage = [
             ...chatMessages, {
               message: inputText,
               sender: "user",
+              key: crypto.randomUUID()
+            }
+          ]
+
+          setChatMessages(newChatMessage);
+
+          const response = Chatbot.getResponse(inputText);
+          setChatMessages([
+            ...newChatMessage, {
+              message: response,
+              sender: 'robot',
               key: crypto.randomUUID()
             }
           ])
