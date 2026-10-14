@@ -9,7 +9,7 @@ export function HomePage() {
     })
     .then((data) => {
       console.log(data);
-    })
+    });
   return (
     <>
       <Header />
