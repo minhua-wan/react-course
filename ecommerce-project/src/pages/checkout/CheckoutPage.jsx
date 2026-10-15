@@ -5,7 +5,7 @@ import "./checkout-header.css";
 import { OrderSummary } from "./OrderSummary";
 import { PaymentSummary } from "./PaymentSummary";
 export function CheckoutPage({ cart, loadCart }) {
-  const [deliveryOptions, setDeliverOptions] = useState([]);
+  const [deliveryOptions, setDeliveryOptions] = useState([]);
   const [paymentSummary, setPaymentSummary] = useState([]);
   useEffect(() => {
     const fetchCheckoutData = async () => {
@@ -13,7 +13,7 @@ export function CheckoutPage({ cart, loadCart }) {
         "/api/delivery-options?expand=estimatedDeliveryTime",
       );
 
-      setDeliverOptions(response.data);
+      setDeliveryOptions(response.data);
       response = await axios.get("/api/payment-summary");
       setPaymentSummary(response.data);
     };
