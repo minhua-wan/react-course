@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, Fragment } from "react";
 import axios from "axios";
 import { Header } from "../components/Header";
 import "./OrdersPage.css";
@@ -29,9 +29,7 @@ export function OrdersPage({ cart }) {
                     <div className="order-header-left-section">
                       <div className="order-date">
                         <div className="order-header-label">Order Placed:</div>
-                        <div>
-                          {dayjs(order.orderTimeMs).format("dddd, MMMM D")}
-                        </div>
+                        <div>{dayjs(order.orderTimeMs).format("MMMM D")}</div>
                       </div>
                       <div className="order-total">
                         <div className="order-header-label">Total:</div>
@@ -47,24 +45,24 @@ export function OrdersPage({ cart }) {
 
                   <div className="order-details-grid">
                     {order.products.length > 0 &&
-                      order.products.map((product) => {
+                      order.products.map((orderProduct) => {
                         return (
-                          <>
+                          <Fragment key={orderProduct.product.id}>
                             <div className="product-image-container">
-                              <img src={product.product.image} />
+                              <img src={orderProduct.product.image} />
                             </div>
 
                             <div className="product-details">
                               <div className="product-name">
-                                {product.product.name}
+                                {orderProduct.product.name}
                               </div>
                               <div className="product-delivery-date">
                                 {`Arriving on:${dayjs(
-                                  product.estimatedDeliveryTimeMs,
+                                  orderProduct.estimatedDeliveryTimeMs,
                                 ).format("MMMM D")}`}
                               </div>
                               <div className="product-quantity">
-                                {`Quantity: ${product.quantity}`}
+                                {`Quantity: ${orderProduct.quantity}`}
                               </div>
                               <button className="buy-again-button button-primary">
                                 <img
@@ -84,7 +82,7 @@ export function OrdersPage({ cart }) {
                                 </button>
                               </a>
                             </div>
-                          </>
+                          </Fragment>
                         );
                       })}
                   </div>
